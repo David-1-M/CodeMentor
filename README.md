@@ -42,5 +42,5 @@ Open `http://127.0.0.1:8000/docs` for the interactive API documentation.
 Run tests:
 
 ```bash
-pytest
+python -m pytest
 ```
