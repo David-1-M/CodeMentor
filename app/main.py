@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app import models
 
 from app.database import create_database_and_tables
 
