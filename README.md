@@ -18,6 +18,7 @@ CodeMentor is a programming-learning platform designed to help students practise
 - SQLite
 - pytest
 - GitHub Actions
+- SQLModel
 
 ## Local setup
 
