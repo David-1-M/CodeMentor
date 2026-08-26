@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from app.database import create_database_and_tables
+
 app = FastAPI(
     title="CodeMentor API",
     description="A learning platform for Python and C++ students.",
@@ -7,9 +9,9 @@ app = FastAPI(
 )
 
 
-@app.get("/health")
-def health_check() -> dict[str, str]:
-    return {"status": "ok"}
+@app.on_event("startup")
+def on_startup() -> None:
+    create_database_and_tables()
 
 
 @app.get("/")
@@ -18,3 +20,8 @@ def welcome() -> dict[str, str]:
         "message": "Welcome to CodeMentor API",
         "docs": "/docs",
     }
+
+
+@app.get("/health")
+def health_check() -> dict[str, str]:
+    return {"status": "ok"}
