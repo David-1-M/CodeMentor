@@ -14,12 +14,24 @@ class DifficultyLevel(str, Enum):
     ADVANCED = "Advanced"
 
 
-class Question(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    title: str = Field(index=True, min_length=3, max_length=120)
+class QuestionBase(SQLModel):
+    title: str = Field(min_length=3, max_length=120)
     language: ProgrammingLanguage
     difficulty: DifficultyLevel
-    prompt: str
+    prompt: str = Field(min_length=10)
     hint: str | None = None
     solution_template: str | None = None
+
+
+class Question(QuestionBase, table=True):
+    id: int | None = Field(default=None, primary_key=True)
     is_published: bool = Field(default=True)
+
+
+class QuestionCreate(QuestionBase):
+    pass
+
+
+class QuestionRead(QuestionBase):
+    id: int
+    is_published: bool

@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from app import models
 
+from app.api.questions import router as questions_router
+
 from app.database import create_database_and_tables
 
 app = FastAPI(
@@ -8,6 +10,8 @@ app = FastAPI(
     description="A learning platform for Python and C++ students.",
     version="0.1.0",
 )
+
+app.include_router(questions_router)
 
 
 @app.on_event("startup")
