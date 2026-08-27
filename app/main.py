@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 from app import models
 
+from sqlmodel import Session
+
+from app.database import create_database_and_tables, engine
+from app.seed import seed_questions
+
 from app.api.questions import router as questions_router
 
 from app.database import create_database_and_tables
@@ -17,6 +22,9 @@ app.include_router(questions_router)
 @app.on_event("startup")
 def on_startup() -> None:
     create_database_and_tables()
+    
+    with Session(engine) as session:
+        seed_questions(session)
 
 
 @app.get("/")
